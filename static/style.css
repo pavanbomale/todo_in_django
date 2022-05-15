@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+body{
+    font-family: 'Ubuntu', sans-serif;
+    background: rgba(173, 219, 242, 0.899);
+    font-weight: 800;
+}
+.add_todo{
+    width: 50vw;
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 0 9px rgba(0,0,0,0.5);
+}
+.nav-link{
+    color: rgb(106, 103, 103) !important;
+}
+.todo_tables{
+    position: absolute;
+    top: 15%;
+    left: 7%;
+    background: white;
+    border-radius: 20px;
+}
+td, th{
+    padding: 1rem !important;
+}
+.msg{
+    color: rgb(54, 53, 53);
+    position: absolute;
+    top: 40%;
+    left: 38%;
+}

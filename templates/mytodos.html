@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block SearchForm %}
+<form action="" method="post" class="d-flex">
+    {% csrf_token %}
+    <input name="q" class="form-control me-2" type="search"  placeholder="Search by title" aria-label="Search">
+    <button class="btn btn-outline-primary" type="submit">Search</button>
+</form>
+{% endblock %}
+
+{% block content %}
+{% if data %}
+<table id="table" class="table todo_tables container">
+    <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in data %}
+        <tr>
+            <td>{{i.title}}</td>
+            <td>{{i.desc|truncatewords:5}}</td>
+            <td>
+                <a href="{% url 'edit' i.id %}" class="btn btn-success">Edit</a>
+                <a href="{% url 'delete' i.id %}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<nav style="position: absolute;top: 80%;left:10%;" aria-label="Page navigation example">
+    <ul class="pagination">
+
+       {%if data.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{data.previous_page_number}}">Previous</a></li>
+      {% endif %}
+
+      
+      {%if data.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{data.next_page_number}}">Next</a></li>
+      {% endif %}
+    </ul>
+    <div class="page-item">Page {{data.number}} of {{data.paginator.num_pages}} </div>
+  </nav>
+{% endif %}
+
+
+{% if todo_obj %}
+{% for i in todo_obj %}
+<div class="edit_form container">
+    
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{i.id}}">
+        <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input value="{{i.title}}" type="text" name="edit_title" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <!-- <input type="text" class="form-control" id="exampleInputPassword1"> -->
+            <textarea class="form-control" name="edit_description" cols="20" rows="5">{{i.desc}}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    
+</div>
+
+{% endfor %}
+{% endif %}
+
+{% if not data %}
+{% if not todo_obj %}
+<h1 class="msg">No Tasks For Now!</h1>
+{% endif %}
+{% endif %}
+{% endblock %}

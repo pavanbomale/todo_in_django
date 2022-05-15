@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="add_todo container">
+    {{title}}
+    {{desc}}
+    <form method="post" action="">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input type="text" name="title" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <!-- <input type="text" class="form-control" id="exampleInputPassword1"> -->
+            <textarea class="form-control" name="description" cols="20" rows="5"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}
+
